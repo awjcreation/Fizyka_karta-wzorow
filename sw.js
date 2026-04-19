@@ -25,7 +25,8 @@ const ASSETS = [
   './images/wartosci_wybranych_jednostek_spoza_ukladu_si.png',
   './images/wartosci_wybranych_stalych_fizycznych.png',
   './images/wybrane_stale_i_parametry_astrofizyczne.png',
-  './images/wybrane_zaleznosci.png'
+  './images/wybrane_zaleznosci.png',
+  './images/uklad_okresowy_pierwiastkow.png'
 ];
 
 self.addEventListener('install', event => {
