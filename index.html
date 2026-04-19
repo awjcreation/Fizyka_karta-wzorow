@@ -180,7 +180,6 @@ async function openReader(targetId) {
   await waitForRelevantImages(target);
   await new Promise(resolve => requestAnimationFrame(resolve));
   alignReaderToTarget(target);
-  target.focus({ preventScroll: true });
 }
 
 function closeReader() {
