@@ -37,6 +37,7 @@ img { display:block; max-width:100%; height:auto; }
 .start-header { padding:6px 0 10px; }
 .title { margin:0; font-size:clamp(1.7rem,4.5vw,2.35rem); line-height:1.05; letter-spacing:-.03em; }
 .subtitle { margin:10px 0 0; color:var(--muted); font-size:.98rem; line-height:1.5; }
+
 .search-wrap { margin-top:18px; }
 .search-label { display:block; margin-bottom:8px; font-size:.92rem; font-weight:650; color:var(--text); }
 .search-input-wrap { position:relative; }
@@ -52,6 +53,7 @@ img { display:block; max-width:100%; height:auto; }
 }
 .clear-search.hidden { display:none !important; }
 .search-meta { margin:10px 2px 0; color:var(--muted); font-size:.9rem; line-height:1.4; min-height:1.4em; }
+
 .section-list { display:grid; gap:12px; margin-top:18px; }
 .empty-state {
   border:1px dashed var(--line); background:rgba(255,255,255,.7); color:var(--muted); border-radius:16px; padding:16px 18px; text-align:center;
@@ -61,17 +63,47 @@ img { display:block; max-width:100%; height:auto; }
   border-radius:16px; padding:16px 18px; font-size:1rem; font-weight:650; box-shadow:var(--shadow); cursor:pointer;
 }
 .section-link:active { transform:translateY(1px); }
-.license { margin:18px; color:var(--muted); font-size:.88rem; line-height:1.45; text-align: center}
+
+.license { margin:18px; color:var(--muted); font-size:.88rem; line-height:1.45; text-align:center; }
+
 .reader-top {
   position:sticky; top:0; z-index:10; backdrop-filter: blur(10px); background:rgba(255,255,255,.9);
   border-bottom:1px solid var(--line);
 }
-.reader-top-inner { width:min(100%, 820px); margin:0 auto; padding:calc(10px + env(safe-area-inset-top)); display:flex; align-items:center; gap:12px; }
+.reader-top-inner {
+  width:min(100%, 820px);
+  margin:0 auto;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
+  display:grid;
+  gap:10px;
+}
+.reader-top-row {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 .back-btn {
   border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:999px; padding:10px 14px;
-  font-weight:700; box-shadow:var(--shadow); cursor:pointer;
+  font-weight:700; box-shadow:var(--shadow); cursor:pointer; white-space:nowrap;
 }
 .reader-label { font-size:.92rem; color:var(--muted); }
+
+.reader-search-wrap {
+  display:grid;
+  gap:8px;
+}
+.reader-search-label {
+  font-size:.9rem;
+  font-weight:650;
+  color:var(--text);
+}
+.reader-search-meta {
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.35;
+  min-height:1.35em;
+}
+
 .reader-content { width:min(100%, 900px); margin:0 auto; padding:18px 12px 32px; }
 .panel {
   background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:14px; box-shadow:var(--shadow); margin-bottom:16px;
@@ -82,6 +114,7 @@ img { display:block; max-width:100%; height:auto; }
   background:#fff; border:1px solid #eee8f8; border-radius:16px; padding:10px; overflow:hidden; margin-top:10px;
 }
 .figure img { width:100%; height:auto; object-fit:contain; border-radius:10px; }
+
 .splash {
   position:fixed; inset:0; z-index:1000; display:grid; place-items:center; background:radial-gradient(circle at top,#f5edff 0%, #ffffff 46%, #f6f4fb 100%);
   opacity:1; visibility:visible; transition:opacity .7s ease, visibility .7s ease;
@@ -93,8 +126,10 @@ img { display:block; max-width:100%; height:auto; }
 }
 .splash-frame img { width:100%; height:100%; object-fit:contain; border-radius:18px; background:#fff; }
 .splash-note { margin-top:14px; text-align:center; color:var(--muted); font-size:.94rem; }
+
 @media (min-width: 760px) {
   .wrap { padding-left:22px; padding-right:22px; }
+  .reader-top-inner { padding-left:22px; padding-right:22px; }
   .reader-content { padding-left:18px; padding-right:18px; }
   .panel { padding:18px; }
 }
@@ -107,37 +142,52 @@ img { display:block; max-width:100%; height:auto; }
     <div class="splash-note">Ładowanie aplikacji…</div>
   </div>
 </div>
+
 <div class="app">
   <main id="startScreen" class="start-screen">
     <div class="wrap">
       <header class="start-header">
         <h1 class="title">Maturalna karta wzorów - fizyka</h1>
-        <p  class="subtitle">W poniższym zestawie przedstawiono wybrane wzory oraz stałe fizyczne. Przy każdym wzorze zapisano nazwę wielkości lub prawa albo zjawiska, którego wzór dotyczy. Symboli wszystkich wielkości występujących we wzorach nie opisano – przyjęto dla nich powszechnie używane oznaczenia. Podobnie nie opisano warunków i zakresów stosowalności
-przedstawionych wzorów. Wartości wielkości wektorowych zapisano bez symbolu wektora.</p>
+        <p class="subtitle">W poniższym zestawie przedstawiono wybrane wzory oraz stałe fizyczne. Przy każdym wzorze zapisano nazwę wielkości lub prawa albo zjawiska, którego wzór dotyczy. Symboli wszystkich wielkości występujących we wzorach nie opisano – przyjęto dla nich powszechnie używane oznaczenia. Podobnie nie opisano warunków i zakresów stosowalności przedstawionych wzorów. Wartości wielkości wektorowych zapisano bez symbolu wektora.</p>
         <p class="subtitle">Wybierz dział, od którego chcesz zacząć lub wyszukaj temat.</p>
       </header>
+
       <div class="search-wrap">
         <label class="search-label" for="sectionSearch">Wyszukaj temat</label>
         <div class="search-input-wrap">
           <input id="sectionSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Np. magnetyzm, elektrostatyka, SI, fale">
           <button id="clearSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie">✕</button>
         </div>
-        <div id="searchMeta" class="search-meta">Wpisz nazwę działu lub temat</div>
+        <div id="searchMeta" class="search-meta">Wpisz nazwę działu lub temat.</div>
       </div>
+
       <nav id="sectionList" class="section-list" aria-label="Lista działów"></nav>
       <p class="license">Opracowanie edukacyjne na podstawie materiałów egzaminacyjnych CKE. <br>Aplikacja nie jest oficjalnym materiałem CKE.</p>
     </div>
   </main>
+
   <section id="readerScreen" class="reader-screen hidden" aria-label="Czytnik działów">
     <div class="reader-top">
       <div class="reader-top-inner">
-        <button id="backBtn" class="back-btn" type="button">Wróć</button>
-        <div class="reader-label">Przewijaj, aby przejść przez wszystkie działy</div>
+        <div class="reader-top-row">
+          <button id="backBtn" class="back-btn" type="button">Spis działów</button>
+          <div class="reader-label">Przewijaj, aby przejść przez wszystkie działy albo użyj wyszukiwarki</div>
+        </div>
+
+        <div class="reader-search-wrap">
+          <label class="reader-search-label" for="readerSearch">Wyszukaj temat w działach</label>
+          <div class="search-input-wrap">
+            <input id="readerSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Np. magnetyzm, jednostki, astronomia, SI">
+            <button id="clearReaderSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie w działach">✕</button>
+          </div>
+          <div id="readerSearchMeta" class="reader-search-meta">Wpisz nazwę działu lub temat.</div>
+        </div>
       </div>
     </div>
     <div id="readerContent" class="reader-content"></div>
   </section>
 </div>
+
 <script>
 const sections = [
   {"id": "drgania_fale_mechaniczne_i_swietlne", "title": "Drgania, fale mechaniczne i świetlne", "images": ["images/drgania_fale_mechaniczne_i_swietlne.png"]},
@@ -161,15 +211,22 @@ const sections = [
   {"id": "wartosci_wybranych_jednostek_spoza_ukladu_si", "title": "Wartości wybranych jednostek spoza układu SI", "images": ["images/wartosci_wybranych_jednostek_spoza_ukladu_si.png"]},
   {"id": "uklad_okresowy_pierwiastkow", "title": "Układ okresowy pierwiastków", "images": ["images/uklad_okresowy_pierwiastkow.png"]}
 ];
+
 const startScreen = document.getElementById('startScreen');
 const readerScreen = document.getElementById('readerScreen');
 const sectionList = document.getElementById('sectionList');
 const readerContent = document.getElementById('readerContent');
 const backBtn = document.getElementById('backBtn');
 const splash = document.getElementById('splash');
+
 const sectionSearch = document.getElementById('sectionSearch');
 const clearSearch = document.getElementById('clearSearch');
 const searchMeta = document.getElementById('searchMeta');
+
+const readerSearch = document.getElementById('readerSearch');
+const clearReaderSearch = document.getElementById('clearReaderSearch');
+const readerSearchMeta = document.getElementById('readerSearchMeta');
+
 let lastTargetId = sections[0]?.id || '';
 
 const searchKeywords = {
@@ -199,7 +256,7 @@ function normalizeText(value) {
   return (value || '')
     .toLowerCase()
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/[\u0300-\u036f]/g, '')
     .replace(/ł/g, 'l')
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')
@@ -234,6 +291,19 @@ function updateSearchMeta(query, count) {
   searchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działów.`;
 }
 
+function updateReaderSearchMeta(query, count) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    readerSearchMeta.textContent = 'Wpisz nazwę działu lub temat.';
+    return;
+  }
+  if (count === 0) {
+    readerSearchMeta.textContent = 'Brak pasujących działów.';
+    return;
+  }
+  readerSearchMeta.textContent = count === 1 ? 'Widoczny jest 1 dział.' : `Widoczne są ${count} działy.`;
+}
+
 function renderStartList(query = '') {
   const filtered = getFilteredSections(query);
   sectionList.innerHTML = filtered.length
@@ -256,11 +326,29 @@ function buildStart() {
 
 function buildReader() {
   readerContent.innerHTML = sections.map(section => `
-    <article class="panel" id="${section.id}" tabindex="-1">
+    <article class="panel" id="${section.id}" tabindex="-1" data-search="${getSearchHaystack(section)}">
       <h2>${section.title}</h2>
       ${section.images.map(src => `<div class="figure"><img src="${src}" alt="${section.title}"></div>`).join('')}
     </article>
   `).join('') + `<p class="license">Opracowanie edukacyjne na podstawie materiałów egzaminacyjnych CKE. Aplikacja nie jest oficjalnym materiałem CKE.</p>`;
+}
+
+function filterReaderPanels(query = '') {
+  const normalizedQuery = normalizeText(query);
+  const terms = normalizedQuery ? normalizedQuery.split(' ').filter(Boolean) : [];
+  const panels = Array.from(readerContent.querySelectorAll('.panel'));
+  let visibleCount = 0;
+
+  panels.forEach(panel => {
+    const haystack = panel.dataset.search || '';
+    const visible = !terms.length || terms.every(term => haystack.includes(term));
+    panel.classList.toggle('hidden', !visible);
+    if (visible) visibleCount += 1;
+  });
+
+  clearReaderSearch.classList.toggle('hidden', !terms.length);
+  updateReaderSearchMeta(query, visibleCount);
+  return visibleCount;
 }
 
 function getReaderHeaderOffset() {
@@ -269,15 +357,20 @@ function getReaderHeaderOffset() {
 }
 
 function alignReaderToTarget(target) {
-  if (!target) return;
+  if (!target || target.classList.contains('hidden')) return;
   const top = target.offsetTop - getReaderHeaderOffset();
-  readerScreen.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
 }
 
 function waitForRelevantImages(target) {
   const targetIndex = sections.findIndex(section => section.id === target.id);
-  const relevantPanels = Array.from(readerContent.querySelectorAll('.panel')).slice(0, Math.max(0, targetIndex) + 1);
-  const images = relevantPanels.flatMap(panel => Array.from(panel.querySelectorAll('img'))).filter(img => !img.complete);
+  const relevantPanels = Array.from(readerContent.querySelectorAll('.panel'))
+    .filter(panel => !panel.classList.contains('hidden'))
+    .slice(0, Math.max(0, targetIndex) + 1);
+
+  const images = relevantPanels
+    .flatMap(panel => Array.from(panel.querySelectorAll('img')))
+    .filter(img => !img.complete);
 
   if (!images.length) return Promise.resolve();
 
@@ -292,9 +385,13 @@ function waitForRelevantImages(target) {
 
 async function openReader(targetId) {
   lastTargetId = targetId || sections[0]?.id || '';
+
+  readerSearch.value = '';
+  filterReaderPanels('');
+
   startScreen.classList.add('hidden');
   readerScreen.classList.remove('hidden');
-  readerScreen.scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: 'auto' });
 
   const target = document.getElementById(lastTargetId);
   if (!target) return;
@@ -310,11 +407,15 @@ async function openReader(targetId) {
 function closeReader() {
   readerScreen.classList.add('hidden');
   startScreen.classList.remove('hidden');
-  readerScreen.scrollTop = 0;
+
+  readerSearch.value = '';
+  filterReaderPanels('');
+
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 backBtn.addEventListener('click', closeReader);
+
 window.addEventListener('keydown', event => {
   if (event.key === 'Escape' && !readerScreen.classList.contains('hidden')) closeReader();
 });
@@ -333,8 +434,44 @@ clearSearch.addEventListener('click', () => {
   sectionSearch.focus();
 });
 
+readerSearch.addEventListener('input', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+readerSearch.addEventListener('search', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+clearReaderSearch.addEventListener('click', async () => {
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  const currentTarget = document.getElementById(lastTargetId) || readerContent.querySelector('.panel');
+  if (!currentTarget) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(currentTarget);
+  readerSearch.focus();
+});
+
 buildStart();
 buildReader();
+filterReaderPanels('');
+
 window.addEventListener('load', () => {
   setTimeout(() => splash.classList.add('hidden'), 2300);
 });
