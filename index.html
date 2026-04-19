@@ -331,6 +331,24 @@ const searchKeywords = {
   uklad_okresowy_pierwiastkow: ['uklad', 'układ', 'okresowy', 'pierwiastow', 'pierwiastków', 'tablica']
 };
 
+const infoBtn = document.getElementById('infoBtn');
+const infoModal = document.getElementById('infoModal');
+const closeModal = document.getElementById('closeModal');
+
+infoBtn.addEventListener('click', () => {
+  infoModal.classList.remove('hidden');
+});
+
+closeModal.addEventListener('click', () => {
+  infoModal.classList.add('hidden');
+});
+
+infoModal.addEventListener('click', (e) => {
+  if (e.target === infoModal) {
+    infoModal.classList.add('hidden');
+  }
+});
+
 function normalizeText(value) {
   return (value || '')
     .toLowerCase()
