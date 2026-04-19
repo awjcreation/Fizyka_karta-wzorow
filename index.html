@@ -460,12 +460,11 @@ img { display:block; max-width:100%; height:auto; }
             </svg>
             Spis działów
           </button>
-          <div class="reader-label">Przegląd wszystkich działów</div>
         </div>
 
         <div class="reader-search-wrap">
           <div class="reader-search-header">
-            <label class="reader-search-label" for="readerSearch">Szybkie wyszukiwanie</label>
+            <label class="reader-search-label" for="readerSearch">Wyszukaj</label>
             <div id="readerSearchMeta" class="reader-search-meta" aria-live="polite"></div>
           </div>
           <div class="search-input-wrap">
@@ -665,7 +664,7 @@ function updateReaderSearchMeta(query, count) {
     readerSearchMeta.textContent = 'Brak pasujących działów.';
     return;
   }
-  readerSearchMeta.textContent = count === 1 ? 'Widoczny jest 1 dział.' : `Widoczne są ${count} działy.`;
+  readerSearchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działy.`;
 }
 
 function renderStartList(query = '') {
@@ -694,11 +693,7 @@ function buildReader() {
       <h2>${section.title}</h2>
       ${section.images.map(src => `<div class="figure"><img src="${src}" alt="${section.title}" loading="lazy"></div>`).join('')}
     </article>
-  `).join('') + `
-    <p class="license">
-      Opracowanie edukacyjne na podstawie materiałów egzaminacyjnych CKE. Aplikacja nie jest oficjalnym materiałem CKE.
-    </p>
-  `;
+  `).join('');
 }
 
 function filterReaderPanels(query = '') {
