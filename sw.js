@@ -17,7 +17,7 @@ const ASSETS = [
   './images/kinematyka.png',
   './images/magnetyzm.png',
   './images/optyka_geometryczna.png',
-  './images/podstawowe_jednostki_układu_si.png',
+  './images/podstawowe_jednostki_ukladu_si.png',
   './images/prad_elektryczny.png',
   './images/przedrostki_jednostek_miar.png',
   './images/sily_tarcia_i_sila_sprezystosci.png',
