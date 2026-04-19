@@ -57,6 +57,7 @@ img { display:block; max-width:100%; height:auto; }
 .reader-content { width:min(100%, 900px); margin:0 auto; padding:18px 12px 32px; }
 .panel {
   background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:14px; box-shadow:var(--shadow); margin-bottom:16px;
+  scroll-margin-top:90px;
 }
 .panel h2 { margin:2px 2px 12px; font-size:1.08rem; line-height:1.25; letter-spacing:-.02em; }
 .figure {
@@ -74,23 +75,6 @@ img { display:block; max-width:100%; height:auto; }
 }
 .splash-frame img { width:100%; height:100%; object-fit:contain; border-radius:18px; background:#fff; }
 .splash-note { margin-top:14px; text-align:center; color:var(--muted); font-size:.94rem; }
-.install-banner {
-  position:fixed; left:16px; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:1100;
-  background:rgba(23,18,31,.96); color:#fff; border-radius:20px; padding:16px;
-  box-shadow:0 22px 60px rgba(23,18,31,.24);
-}
-.install-banner-title { margin:0 0 6px; font-size:1rem; font-weight:750; }
-.install-banner-text { margin:0; color:rgba(255,255,255,.82); font-size:.94rem; line-height:1.45; }
-.install-actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
-.install-btn,
-.install-dismiss {
-  appearance:none; border:0; border-radius:999px; padding:11px 16px; font-weight:700; cursor:pointer;
-}
-.install-btn { background:linear-gradient(135deg,var(--accent) 0%, var(--accent-2) 100%); color:#fff; }
-.install-dismiss { background:rgba(255,255,255,.12); color:#fff; }
-@media (min-width: 760px) {
-  .install-banner { left:50%; right:auto; width:min(420px, calc(100vw - 32px)); transform:translateX(-50%); }
-}
 @media (min-width: 760px) {
   .wrap { padding-left:22px; padding-right:22px; }
   .reader-content { padding-left:18px; padding-right:18px; }
@@ -103,14 +87,6 @@ img { display:block; max-width:100%; height:auto; }
   <div>
     <div class="splash-frame"><img src="splash.jpg" alt="Ekran startowy aplikacji"></div>
     <div class="splash-note">Ładowanie aplikacji…</div>
-  </div>
-</div>
-<div id="installBanner" class="install-banner hidden" role="dialog" aria-live="polite" aria-label="Instalacja aplikacji">
-  <p class="install-banner-title">Zainstalować aplikację?</p>
-  <p class="install-banner-text">Dodaj kartę wzorów do ekranu głównego, aby otwierać ją jak zwykłą aplikację.</p>
-  <div class="install-actions">
-    <button id="installBtn" class="install-btn" type="button">Zainstaluj</button>
-    <button id="dismissInstallBtn" class="install-dismiss" type="button">Nie teraz</button>
   </div>
 </div>
 <div class="app">
@@ -142,10 +118,6 @@ const sectionList = document.getElementById('sectionList');
 const readerContent = document.getElementById('readerContent');
 const backBtn = document.getElementById('backBtn');
 const splash = document.getElementById('splash');
-const installBanner = document.getElementById('installBanner');
-const installBtn = document.getElementById('installBtn');
-const dismissInstallBtn = document.getElementById('dismissInstallBtn');
-let deferredPrompt = null;
 let lastTargetId = sections[0]?.id || '';
 
 function buildStart() {
@@ -171,22 +143,15 @@ function openReader(targetId) {
   startScreen.classList.add('hidden');
   readerScreen.classList.remove('hidden');
 
-  window.scrollTo(0, 0);
-
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const target = document.getElementById(lastTargetId);
-      const header = document.querySelector('.reader-top');
-      const headerHeight = header ? header.offsetHeight : 0;
+    const target = document.getElementById(lastTargetId);
 
-      if (target) {
-        const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
-        target.focus({ preventScroll: true });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'auto' });
-      }
-    });
+    if (target) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      target.focus({ preventScroll: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
   });
 }
 
@@ -206,33 +171,6 @@ buildReader();
 
 window.addEventListener('load', () => {
   setTimeout(() => splash.classList.add('hidden'), 2300);
-});
-
-window.addEventListener('beforeinstallprompt', event => {
-  event.preventDefault();
-  deferredPrompt = event;
-  installBanner.classList.remove('hidden');
-});
-
-installBtn.addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const result = await deferredPrompt.userChoice;
-  if (result?.outcome !== 'accepted') {
-    installBanner.classList.remove('hidden');
-  } else {
-    installBanner.classList.add('hidden');
-  }
-  deferredPrompt = null;
-});
-
-dismissInstallBtn.addEventListener('click', () => {
-  installBanner.classList.add('hidden');
-});
-
-window.addEventListener('appinstalled', () => {
-  deferredPrompt = null;
-  installBanner.classList.add('hidden');
 });
 
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
