@@ -133,7 +133,7 @@ img { display:block; max-width:100%; height:auto; }
   color:var(--text);
   border-radius:16px;
   padding:14px 46px 14px 16px;
-  font-size:1rem;
+  font-size:0.9rem;
   box-shadow:var(--shadow);
   outline:none;
 }
@@ -338,9 +338,9 @@ img { display:block; max-width:100%; height:auto; }
         <p class="subtitle">Wybierz dział, od którego chcesz zacząć lub wyszukaj temat.</p>
 
         <div class="search-wrap">
-          <label class="search-label" for="sectionSearch">Wyszukaj temat</label>
+          <label class="search-label" for="sectionSearch">Wyszukaj:</label>
           <div class="search-input-wrap">
-            <input id="sectionSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Np. magnetyzm, elektrostatyka, SI, fale">
+            <input id="sectionSearch" class="search-input" type="search" inputmode="search" autocomplete="on" spellcheck="false" placeholder="Np. magnetyzm, elektrostatyka, SI, fale">
             <button id="clearSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie">✕</button>
           </div>
           <div id="searchMeta" class="search-meta" aria-live="polite"></div>
