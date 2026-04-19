@@ -1,4 +1,4 @@
-const CACHE_NAME = 'karta-wzorow-clean-v2';
+const CACHE_NAME = 'karta-wzorow';
 
 const ASSETS = [
   './',
