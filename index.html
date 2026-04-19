@@ -32,7 +32,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 img { display:block; max-width:100%; height:auto; }
 .hidden { display:none !important; }
 .app { min-height:100dvh; }
-.start-screen, .reader-screen { min-height:100dvh; }
+.start-screen { min-height:100dvh; }
+.reader-screen { height:100dvh; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
 .wrap { width:min(100%, 820px); margin:0 auto; padding:20px 16px calc(26px + env(safe-area-inset-bottom)); }
 .start-header { padding:6px 0 10px; }
 .title { margin:0; font-size:clamp(1.7rem,4.5vw,2.35rem); line-height:1.05; letter-spacing:-.03em; }
@@ -138,14 +139,14 @@ function buildReader() {
 }
 
 function getReaderHeaderOffset() {
-  const header = document.querySelector('.reader-top');
+  const header = readerScreen.querySelector('.reader-top');
   return header ? header.offsetHeight + 8 : 8;
 }
 
-function alignToTarget(target) {
+function alignReaderToTarget(target) {
   if (!target) return;
-  const top = target.getBoundingClientRect().top + window.pageYOffset - getReaderHeaderOffset();
-  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  const top = target.offsetTop - getReaderHeaderOffset();
+  readerScreen.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
 }
 
 function waitForRelevantImages(target) {
@@ -168,26 +169,25 @@ async function openReader(targetId) {
   lastTargetId = targetId || sections[0]?.id || '';
   startScreen.classList.add('hidden');
   readerScreen.classList.remove('hidden');
-  window.scrollTo({ top: 0, behavior: 'auto' });
+  readerScreen.scrollTop = 0;
 
   const target = document.getElementById(lastTargetId);
   if (!target) return;
 
   await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-  alignToTarget(target);
+  alignReaderToTarget(target);
 
   await waitForRelevantImages(target);
   await new Promise(resolve => requestAnimationFrame(resolve));
-  alignToTarget(target);
-
-  setTimeout(() => alignToTarget(target), 150);
+  alignReaderToTarget(target);
   target.focus({ preventScroll: true });
 }
 
 function closeReader() {
   readerScreen.classList.add('hidden');
   startScreen.classList.remove('hidden');
-  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  readerScreen.scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 backBtn.addEventListener('click', closeReader);
