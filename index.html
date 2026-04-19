@@ -37,7 +37,50 @@ img { display:block; max-width:100%; height:auto; }
 .start-header { padding:6px 0 10px; }
 .title { margin:0; font-size:clamp(1.7rem,4.5vw,2.35rem); line-height:1.05; letter-spacing:-.03em; }
 .subtitle { margin:10px 0 0; color:var(--muted); font-size:.98rem; line-height:1.5; }
+.info-box {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
 
+.info-box summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 650;
+  font-size: 0.95rem;
+  list-style: none;
+  position: relative;
+}
+
+.info-box summary::-webkit-details-marker {
+  display: none;
+}
+
+/* strzałka */
+.info-box summary::after {
+  content: "▾";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.info-box[open] summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.info-content {
+  padding: 0 16px 16px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
 .search-wrap { margin-top:18px; }
 .search-label { display:block; margin-bottom:8px; font-size:.92rem; font-weight:650; color:var(--text); }
 .search-input-wrap { position:relative; }
@@ -160,7 +203,17 @@ img { display:block; max-width:100%; height:auto; }
         </div>
         <div id="searchMeta" class="search-meta">Wpisz nazwę działu lub temat.</div>
       </div>
-
+      <details class="info-box">
+  <summary>Informacja o zakresie zestawu</summary>
+  <div class="info-content">
+    W poniższym zestawie przedstawiono wybrane wzory oraz stałe fizyczne.
+    Przy każdym wzorze zapisano nazwę wielkości lub prawa albo zjawiska,
+    którego wzór dotyczy. Symboli wszystkich wielkości występujących we
+    wzorach nie opisano – przyjęto dla nich powszechnie używane oznaczenia.
+    Podobnie nie opisano warunków i zakresów stosowalności przedstawionych
+    wzorów. Wartości wielkości wektorowych zapisano bez symbolu wektora.
+  </div>
+</details>
       <nav id="sectionList" class="section-list" aria-label="Lista działów"></nav>
       <p class="license">Opracowanie edukacyjne na podstawie materiałów egzaminacyjnych CKE. <br>Aplikacja nie jest oficjalnym materiałem CKE.</p>
     </div>
