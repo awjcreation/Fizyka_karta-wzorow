@@ -3,6 +3,7 @@ const CACHE_NAME = 'karta-wzorow';
 const ASSETS = [
   './',
   './index.html',
+  './style.css',
   './manifest.webmanifest',
   './splash.jpg',
   './icons/icon-192.png',
