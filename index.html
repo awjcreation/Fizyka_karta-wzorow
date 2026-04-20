@@ -329,7 +329,7 @@ function getSectionSubtitle(id) {
 function updateSearchMeta(query, count) {
   const normalizedQuery = normalizeText(query);
   if (!normalizedQuery) {
-    searchMeta.textContent = 'Wpisz poniżej nazwę działu lub temat';
+    searchMeta.textContent = 'Wpisz powyżej nazwę działu lub temat';
     return;
   }
   if (count === 0) {
@@ -342,7 +342,7 @@ function updateSearchMeta(query, count) {
 function updateReaderSearchMeta(query, count) {
   const normalizedQuery = normalizeText(query);
   if (!normalizedQuery) {
-    readerSearchMeta.textContent = 'Wpisz poniżej nazwę działu lub temat';
+    readerSearchMeta.textContent = 'Wpisz powyżej nazwę działu lub temat';
     return;
   }
   if (count === 0) {
