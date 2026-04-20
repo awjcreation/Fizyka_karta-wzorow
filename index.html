@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>KARTA WZORÓW i wielkości fizykochemicznych</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="splash" class="splash" aria-hidden="true">
+  <div>
+    <div class="splash-frame">
+      <img src="splash.jpg" alt="Ekran startowy aplikacji">
+    </div>
+    <div class="splash-note">Ładowanie aplikacji…</div>
+  </div>
+</div>
+
+<div class="app">
+  <main id="startScreen" class="start-screen">
+    <div class="wrap">
+      <header class="start-header">
+        <div class="top-bar-row">
+          <div class="title-chip" aria-hidden="true">
+            <span class="title-chip-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h7" />
+                <path d="M4 12h10" />
+                <path d="M4 17h7" />
+                <circle cx="16.5" cy="7" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="13.5" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+                <circle cx="16.5" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <h1 class="title">Spis działów</h1>
+          </div>
+          <button id="infoBtn" class="info-btn" type="button" aria-label="Informacje">i</button>
+        </div>
+
+        <div class="search-wrap unified">
+          <div class="search-input-wrap unified">
+            <input id="sectionSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Np. magnetyzm, jednostki, astro...">
+            <button id="clearSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie">✕</button>
+          </div>
+          <div id="searchMeta" class="search-meta" aria-live="polite"></div>
+        </div>
+      </header>
+
+      <nav id="sectionList" class="section-list" aria-label="Lista działów"></nav>
+    </div>
+  </main>
+
+  <section id="readerScreen" class="reader-screen hidden" aria-label="Czytnik działów">
+    <div class="reader-top">
+      <div class="reader-top-inner">
+        <div class="reader-top-row">
+          <button id="backBtn" class="back-btn compact" type="button" aria-label="Powrót do listy działów">
+            <span class="back-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 12H19" />
+                <path d="M11 8.5L7.5 12L11 15.5" />
+                <path d="M14.5 7h4" />
+                <path d="M14.5 12h4" />
+                <path d="M14.5 17h4" />
+                <circle cx="12" cy="7" r="1.1" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="17" r="1.1" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span>Spis działów</span>
+          </button>
+        </div>
+
+        <div class="reader-search-wrap">
+          <div class="search-input-wrap unified">
+            <input id="readerSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Np. magnetyzm, jednostki, astro...">
+            <button id="clearReaderSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie w działach">✕</button>
+          </div>
+          <div id="readerSearchMeta" class="search-meta" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="readerContent" class="reader-content"></div>
+  </section>
+</div>
+
+<div id="infoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="license-note-title">
+  <div class="modal-content">
+    <button id="closeModal" class="modal-close" type="button" aria-label="Zamknij okno">✕</button>
+
+    <section class="license-note" aria-labelledby="license-note-title">
+      <h2 id="license-note-title">Informacja o opracowaniu</h2>
+
+      <p>
+        To opracowanie edukacyjne „KARTA WZORÓW i wielkości fizykochemicznych” zostało przygotowane przez
+        <a href="mailto:anna@jedlinscy.com"><strong>Annę Wójcik-Jedlińską</strong></a>.
+      </p>
+
+      <p>
+        Materiał jest inspirowany zakresem kart wzorów do egzaminu maturalnego publikowanych przez
+        <a
+          href="https://bip.cke.gov.pl/artykul/211/1658/egzamin-maturalny-w-formule-2022"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Centralną Komisję Egzaminacyjną (CKE)
+        </a>.
+      </p>
+
+      <p>
+        Układ, forma prezentacji oraz sposób dostosowania treści do urządzeń mobilnych zostały
+        opracowane samodzielnie. Materiał ma charakter pomocniczy i edukacyjny.
+      </p>
+
+      <p>
+        Niniejszy materiał <strong>nie stanowi oficjalnego dokumentu CKE</strong> i
+        <strong>nie zastępuje</strong> oryginalnych kart wzorów publikowanych przez CKE.
+      </p>
+
+      <p>
+        O ile nie wskazano inaczej, autorskie elementy tego opracowania są udostępniane na licencji
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/deed.pl"
+          target="_blank"
+          rel="license noopener noreferrer"
+        >
+          Creative Commons Uznanie autorstwa 4.0 Międzynarodowe (CC BY 4.0)
+        </a>.
+      </p>
+
+      <p>
+        Licencja ta dotyczy wyłącznie elementów przygotowanych przez autora opracowania i
+        <strong>nie obejmuje</strong> materiałów źródłowych CKE ani innych treści, do których prawa
+        przysługują odrębnym podmiotom.
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+const sections = [
+  {"id": "kinematyka", "title": "Kinematyka", "images": ["images/kinematyka.png"]},
+  {"id": "dynamika", "title": "Dynamika", "images": ["images/dynamika.png"]},
+  {"id": "sily_tarcia_i_sila_sprezystosci", "title": "Siły tarcia i siła sprężystości", "images": ["images/sily_tarcia_i_sila_sprezystosci.png"]},
+  {"id": "grawitacja_i_elementy_astronomii", "title": "Grawitacja i elementy astronomii", "images": ["images/grawitacja_i_elementy_astronomii.png"]},
+  {"id": "drgania_fale_mechaniczne_i_swietlne", "title": "Drgania, fale mechaniczne i świetlne", "images": ["images/drgania_fale_mechaniczne_i_swietlne.png"]},
+  {"id": "optyka_geometryczna", "title": "Optyka geometryczna", "images": ["images/optyka_geometryczna.png"]},
+  {"id": "hydrostatyka_aerostatyka", "title": "Hydrostatyka i aerostatyka", "images": ["images/hydrostatyka_aerostatyka.png"]},
+  {"id": "termodynamika", "title": "Termodynamika", "images": ["images/termodynamika.png"]},
+  {"id": "elektrostatyka", "title": "Elektrostatyka", "images": ["images/elektrostatyka.png"]},
+  {"id": "prad_elektryczny", "title": "Prąd elektryczny", "images": ["images/prad_elektryczny.png"]},
+  {"id": "magnetyzm", "title": "Magnetyzm", "images": ["images/magnetyzm.png"]},
+  {"id": "elementy_mechaniki_relatywistycznej", "title": "Elementy mechaniki relatywistycznej", "images": ["images/elementy_mechaniki_relatywistycznej.png"]},
+  {"id": "elementy_fizyki_atomowej_i_jadrowej", "title": "Elementy fizyki atomowej i jądrowej", "images": ["images/elementy_fizyki_atomowej_i_jadrowej.png"]},
+  {"id": "wybrane_zaleznosci", "title": "Wybrane zależności", "images": ["images/wybrane_zaleznosci.png"]},
+  {"id": "podstawowe_jednostki_ukladu_si", "title": "Podstawowe jednostki układu SI", "images": ["images/podstawowe_jednostki_ukladu_si.png"]},
+  {"id": "przedrostki_jednostek_miar", "title": "Przedrostki jednostek miar", "images": ["images/przedrostki_jednostek_miar.png"]},
+  {"id": "wartosci_wybranych_stalych_fizycznych", "title": "Wartości wybranych stałych fizycznych", "images": ["images/wartosci_wybranych_stalych_fizycznych.png"]},
+  {"id": "wybrane_stale_i_parametry_astrofizyczne", "title": "Wybrane stałe i parametry astrofizyczne", "images": ["images/wybrane_stale_i_parametry_astrofizyczne.png"]},
+  {"id": "wartosci_wybranych_jednostek_spoza_ukladu_si", "title": "Wybrane wartości jednostek spoza układu SI", "images": ["images/wartosci_wybranych_jednostek_spoza_ukladu_si.png"]},
+  {"id": "uklad_okresowy_pierwiastkow", "title": "Układ okresowy pierwiastków", "images": ["images/uklad_okresowy_pierwiastkow.png"]}
+];
+
+const sectionMeta = {
+  kinematyka: { icon: '↗', subtitle: 'Ruch i zależności kinematyczne' },
+  dynamika: { icon: '◉', subtitle: 'Siły i prawa dynamiki' },
+  sily_tarcia_i_sila_sprezystosci: { icon: '≈', subtitle: 'Tarcie, sprężystość i opory ruchu' },
+  grawitacja_i_elementy_astronomii: { icon: '✦', subtitle: 'Grawitacja, orbity i astronomia' },
+  drgania_fale_mechaniczne_i_swietlne: { icon: '∿', subtitle: 'Drgania oraz fale mechaniczne i świetlne' },
+  optyka_geometryczna: { icon: '◌', subtitle: 'Soczewki, zwierciadła i obrazy' },
+  hydrostatyka_aerostatyka: { icon: '◍', subtitle: 'Ciśnienie, ciecze i gazy' },
+  termodynamika: { icon: '◔', subtitle: 'Ciepło, temperatura i przemiany' },
+  elektrostatyka: { icon: '⚡', subtitle: 'Ładunki, pole elektryczne i potencjał' },
+  prad_elektryczny: { icon: '⎓', subtitle: 'Prąd, opór, napięcie i obwody' },
+  magnetyzm: { icon: '∪', subtitle: 'Pole magnetyczne i indukcja' },
+  elementy_mechaniki_relatywistycznej: { icon: '⟲', subtitle: 'Relatywistyka i ruch z dużą prędkością' },
+  elementy_fizyki_atomowej_i_jadrowej: { icon: '✺', subtitle: 'Atom, jądro i promieniotwórczość' },
+  wybrane_zaleznosci: { icon: 'ƒ', subtitle: 'Zestaw przydatnych zależności' },
+  podstawowe_jednostki_ukladu_si: { icon: 'SI', subtitle: 'Podstawowe jednostki układu SI' },
+  przedrostki_jednostek_miar: { icon: '10³', subtitle: 'Przedrostki i skale wielkości' },
+  wartosci_wybranych_stalych_fizycznych: { icon: 'h', subtitle: 'Stałe fizyczne i ich wartości' },
+  wybrane_stale_i_parametry_astrofizyczne: { icon: '☼', subtitle: 'Stałe i parametry astrofizyczne' },
+  wartosci_wybranych_jednostek_spoza_ukladu_si: { icon: 'eV', subtitle: 'Jednostki spoza układu SI' },
+  uklad_okresowy_pierwiastkow: { icon: 'H', subtitle: 'Układ okresowy pierwiastków' }
+};
+
+const startScreen = document.getElementById('startScreen');
+const readerScreen = document.getElementById('readerScreen');
+const sectionList = document.getElementById('sectionList');
+const readerContent = document.getElementById('readerContent');
+const backBtn = document.getElementById('backBtn');
+const splash = document.getElementById('splash');
+
+const sectionSearch = document.getElementById('sectionSearch');
+const clearSearch = document.getElementById('clearSearch');
+const searchMeta = document.getElementById('searchMeta');
+
+const readerSearch = document.getElementById('readerSearch');
+const clearReaderSearch = document.getElementById('clearReaderSearch');
+const readerSearchMeta = document.getElementById('readerSearchMeta');
+
+const infoBtn = document.getElementById('infoBtn');
+const infoModal = document.getElementById('infoModal');
+const closeModal = document.getElementById('closeModal');
+
+let lastTargetId = sections[0]?.id || '';
+
+const searchKeywords = {
+  drgania_fale_mechaniczne_i_swietlne: ['drgania', 'fala', 'fale', 'mechaniczne', 'świetlne', 'swiatlo', 'światło'],
+  kinematyka: ['kinematyka', 'ruch', 'prędkość', 'predkosc', 'przyspieszenie', 'tor ruchu'],
+  dynamika: ['dynamika', 'zasady dynamiki', 'newton', 'siła', 'sila', 'masa'],
+  sily_tarcia_i_sila_sprezystosci: ['tarcie', 'siła tarcia', 'sila tarcia', 'sprężystość', 'sprezystosc', 'hooke'],
+  grawitacja_i_elementy_astronomii: ['grawitacja', 'astronomia', 'planety', 'orbita', 'ciążenie', 'ciazenie'],
+  hydrostatyka_aerostatyka: ['hydrostatyka', 'aerostatyka', 'ciecz', 'ciśnienie', 'cisnienie', 'prawo pascala', 'archimedes'],
+  termodynamika: ['termodynamika', 'ciepło', 'cieplo', 'temperatura', 'gaz', 'energia wewnętrzna'],
+  elektrostatyka: ['elektrostatyka', 'ładunek', 'ladunek', 'pole elektryczne', 'kondensator', 'prawo coulomba'],
+  prad_elektryczny: ['prąd', 'prad', 'natężenie', 'natezenie', 'opór', 'opor', 'napięcie', 'napiecie', 'ohm'],
+  magnetyzm: ['magnetyzm', 'pole magnetyczne', 'indukcja', 'cewka', 'solenoid'],
+  optyka_geometryczna: ['optyka', 'soczewka', 'lustro', 'ogniskowa', 'powiększenie', 'powiekszenie'],
+  elementy_mechaniki_relatywistycznej: ['relatywistyczna', 'relatywistyka', 'szczególna teoria względności', 'wzglednosci', 'einstein'],
+  elementy_fizyki_atomowej_i_jadrowej: ['atomowa', 'jądrowa', 'jadrowa', 'promieniotwórczość', 'promieniotworczosc', 'izotop', 'foton'],
+  wybrane_zaleznosci: ['zależności', 'zaleznosci', 'wzory', 'przekształcenia'],
+  podstawowe_jednostki_ukladu_si: ['jednostki', 'układ si', 'uklad si', 'si', 'metr', 'kilogram', 'sekunda'],
+  przedrostki_jednostek_miar: ['przedrostki', 'mikro', 'mega', 'giga', 'nano', 'mili'],
+  wartosci_wybranych_stalych_fizycznych: ['stałe fizyczne', 'stale fizyczne', 'stałe', 'stale', 'g', 'h', 'c'],
+  wybrane_stale_i_parametry_astrofizyczne: ['astrofizyczne', 'astronomia', 'planety', 'słońce', 'slonce', 'kosmos'],
+  wartosci_wybranych_jednostek_spoza_ukladu_si: ['spoza układu si', 'spoza ukladu si', 'elektronowolt', 'ev', 'rok świetlny', 'rok swietlny'],
+  uklad_okresowy_pierwiastkow: ['uklad', 'układ', 'okresowy', 'pierwiastow', 'pierwiastków', 'tablica']
+};
+
+infoBtn.addEventListener('click', () => {
+  infoModal.classList.remove('hidden');
+});
+
+closeModal.addEventListener('click', () => {
+  infoModal.classList.add('hidden');
+});
+
+infoModal.addEventListener('click', (e) => {
+  if (e.target === infoModal) {
+    infoModal.classList.add('hidden');
+  }
+});
+
+function normalizeText(value) {
+  return (value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ł/g, 'l')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getSearchHaystack(section) {
+  const keywords = searchKeywords[section.id] || [];
+  return normalizeText([section.title, ...keywords].join(' '));
+}
+
+function getFilteredSections(query) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) return sections;
+
+  const terms = normalizedQuery.split(' ').filter(Boolean);
+  return sections.filter(section => {
+    const haystack = getSearchHaystack(section);
+    return terms.every(term => haystack.includes(term));
+  });
+}
+
+
+function getSectionIcon(id) {
+  const icons = {
+    kinematyka: '↗',
+    dynamika: '◉',
+    sily_tarcia_i_sila_sprezystosci: '≈',
+    grawitacja_i_elementy_astronomii: '✦',
+    drgania_fale_mechaniczne_i_swietlne: '∿',
+    optyka_geometryczna: '◌',
+    hydrostatyka_aerostatyka: '◍',
+    termodynamika: '◔',
+    elektrostatyka: 'ϟ',
+    prad_elektryczny: '∣',
+    magnetyzm: '∪',
+    elementy_mechaniki_relatywistycznej: '⟲',
+    elementy_fizyki_atomowej_i_jadrowej: '⚛',
+    wybrane_zaleznosci: '∑',
+    podstawowe_jednostki_ukladu_si: 'SI',
+    przedrostki_jednostek_miar: '10',
+    wartosci_wybranych_stalych_fizycznych: 'h',
+    wybrane_stale_i_parametry_astrofizyczne: '☼',
+    wartosci_wybranych_jednostek_spoza_ukladu_si: 'eV',
+    uklad_okresowy_pierwiastkow: 'H'
+  };
+  return icons[id] || '•';
+}
+
+function getSectionSubtitle(id) {
+  const subtitles = {
+    kinematyka: 'Ruch i zależności kinematyczne',
+    dynamika: 'Siły i zasady dynamiki',
+    sily_tarcia_i_sila_sprezystosci: 'Tarcie, sprężystość i prawo Hooke’a',
+    grawitacja_i_elementy_astronomii: 'Grawitacja, orbity i astronomia',
+    drgania_fale_mechaniczne_i_swietlne: 'Drgania oraz fale mechaniczne i świetlne',
+    optyka_geometryczna: 'Soczewki, zwierciadła i obrazy',
+    hydrostatyka_aerostatyka: 'Ciecze, gazy i ciśnienie',
+    termodynamika: 'Ciepło, temperatura i przemiany',
+    elektrostatyka: 'Ładunki, pole elektryczne i potencjał',
+    prad_elektryczny: 'Napięcie, natężenie i opór',
+    magnetyzm: 'Pole magnetyczne i indukcja',
+    elementy_mechaniki_relatywistycznej: 'Relatywistyka w pigułce',
+    elementy_fizyki_atomowej_i_jadrowej: 'Atom, jądro i promieniotwórczość',
+    wybrane_zaleznosci: 'Najważniejsze zależności i przekształcenia',
+    podstawowe_jednostki_ukladu_si: 'Jednostki podstawowe układu SI',
+    przedrostki_jednostek_miar: 'Skale i przedrostki jednostek',
+    wartosci_wybranych_stalych_fizycznych: 'Najważniejsze stałe fizyczne',
+    wybrane_stale_i_parametry_astrofizyczne: 'Stałe i parametry astrofizyczne',
+    wartosci_wybranych_jednostek_spoza_ukladu_si: 'Jednostki spoza SI',
+    uklad_okresowy_pierwiastkow: 'Tablica pierwiastków'
+  };
+  return subtitles[id] || 'Zobacz dział';
+}
+
+function updateSearchMeta(query, count) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    searchMeta.textContent = 'Wpisz poniżej nazwę działu lub temat';
+    return;
+  }
+  if (count === 0) {
+    searchMeta.textContent = 'Brak wyników. Spróbuj innego hasła.';
+    return;
+  }
+  searchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działów.`;
+}
+
+function updateReaderSearchMeta(query, count) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    readerSearchMeta.textContent = 'Wpisz poniżej nazwę działu lub temat';
+    return;
+  }
+  if (count === 0) {
+    readerSearchMeta.textContent = 'Brak pasujących działów.';
+    return;
+  }
+  readerSearchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działy.`;
+}
+
+function getSectionMeta(section) {
+  return sectionMeta[section.id] || { icon: '•', subtitle: 'Otwórz dział' };
+}
+
+function renderStartList(query = '') {
+  const filtered = getFilteredSections(query);
+  sectionList.innerHTML = filtered.length
+    ? filtered.map(section => {
+        const meta = getSectionMeta(section);
+        return `
+        <button class="section-link" type="button" data-target="${section.id}" aria-label="Otwórz dział ${section.title}">
+          <span class="section-icon" aria-hidden="true">${meta.icon}</span>
+          <span class="section-copy">
+            <span class="section-name">${section.title}</span>
+            <span class="section-subtitle">${meta.subtitle}</span>
+          </span>
+          <span class="section-chevron" aria-hidden="true">›</span>
+        </button>`;
+      }).join('')
+    : '<div class="empty-state">Brak pasujących działów.</div>';
+
+  sectionList.querySelectorAll('[data-target]').forEach(btn => {
+    btn.addEventListener('click', () => openReader(btn.dataset.target));
+  });
+
+  updateSearchMeta(query, filtered.length);
+  clearSearch.classList.toggle('hidden', !normalizeText(query));
+}
+
+function buildStart() {
+  renderStartList('');
+}
+
+function buildReader() {
+  readerContent.innerHTML = sections.map(section => `
+    <article class="panel" id="${section.id}" tabindex="-1" data-search="${getSearchHaystack(section)}">
+      <h2>${section.title}</h2>
+      ${section.images.map(src => `<div class="figure"><img src="${src}" alt="${section.title}" loading="lazy"></div>`).join('')}
+    </article>
+  `).join('');
+}
+
+function filterReaderPanels(query = '') {
+  const normalizedQuery = normalizeText(query);
+  const terms = normalizedQuery ? normalizedQuery.split(' ').filter(Boolean) : [];
+  const panels = Array.from(readerContent.querySelectorAll('.panel'));
+  let visibleCount = 0;
+
+  panels.forEach(panel => {
+    const haystack = panel.dataset.search || '';
+    const visible = !terms.length || terms.every(term => haystack.includes(term));
+    panel.classList.toggle('hidden', !visible);
+    if (visible) visibleCount += 1;
+  });
+
+  clearReaderSearch.classList.toggle('hidden', !terms.length);
+  updateReaderSearchMeta(query, visibleCount);
+  return visibleCount;
+}
+
+function getReaderHeaderOffset() {
+  const header = readerScreen.querySelector('.reader-top');
+  return header ? header.offsetHeight + 8 : 8;
+}
+
+function alignReaderToTarget(target) {
+  if (!target || target.classList.contains('hidden')) return;
+  const top = target.getBoundingClientRect().top + window.scrollY - getReaderHeaderOffset();
+  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+}
+
+function waitForRelevantImages(target) {
+  const allVisiblePanels = Array.from(readerContent.querySelectorAll('.panel'))
+    .filter(panel => !panel.classList.contains('hidden'));
+
+  const targetVisibleIndex = allVisiblePanels.findIndex(panel => panel.id === target.id);
+  const relevantPanels = targetVisibleIndex >= 0 ? allVisiblePanels.slice(0, targetVisibleIndex + 1) : [target];
+
+  const images = relevantPanels
+    .flatMap(panel => Array.from(panel.querySelectorAll('img')))
+    .filter(img => !img.complete);
+
+  if (!images.length) return Promise.resolve();
+
+  return Promise.race([
+    Promise.all(images.map(img => new Promise(resolve => {
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    }))),
+    new Promise(resolve => setTimeout(resolve, 1200))
+  ]);
+}
+
+async function openReader(targetId) {
+  lastTargetId = targetId || sections[0]?.id || '';
+
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  startScreen.classList.add('hidden');
+  readerScreen.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+
+  const target = document.getElementById(lastTargetId);
+  if (!target) return;
+
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  alignReaderToTarget(target);
+
+  await waitForRelevantImages(target);
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(target);
+}
+
+function closeReader() {
+  readerScreen.classList.add('hidden');
+  startScreen.classList.remove('hidden');
+
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+backBtn.addEventListener('click', closeReader);
+
+window.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    if (!infoModal.classList.contains('hidden')) {
+      infoModal.classList.add('hidden');
+      return;
+    }
+    if (!readerScreen.classList.contains('hidden')) {
+      closeReader();
+    }
+  }
+});
+
+sectionSearch.addEventListener('input', event => {
+  renderStartList(event.target.value);
+});
+
+sectionSearch.addEventListener('search', event => {
+  renderStartList(event.target.value);
+});
+
+clearSearch.addEventListener('click', () => {
+  sectionSearch.value = '';
+  renderStartList('');
+  sectionSearch.focus();
+});
+
+readerSearch.addEventListener('input', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+readerSearch.addEventListener('search', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+clearReaderSearch.addEventListener('click', async () => {
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  const currentTarget = document.getElementById(lastTargetId) || readerContent.querySelector('.panel');
+  if (!currentTarget) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(currentTarget);
+  readerSearch.focus();
+});
+
+buildStart();
+buildReader();
+filterReaderPanels('');
+
+window.addEventListener('load', () => {
+  setTimeout(() => splash.classList.add('hidden'), 2300);
+});
+
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
