@@ -357,23 +357,30 @@ img {
 
 .back-btn.compact {
   display:inline-flex;
-  align-items:center;
+  align-items:center; /* 🔥 kluczowe */
   gap:10px;
+
   padding:6px 2px;
   border:none;
   background:transparent;
   box-shadow:none;
+
   font-size:clamp(1.25rem, 4vw, 1.45rem);
   font-weight:800;
   letter-spacing:-.03em;
   color:var(--text);
+
   cursor:pointer;
 }
 
 .back-btn.compact .back-arrow {
+  display:inline-flex;           /* 🔥 ważne */
+  align-items:center;            /* 🔥 pionowe centrowanie */
+  justify-content:center;
+
   color:var(--accent);
-  font-size:1.8rem;
-  line-height:1;
+  font-size:1.6em;               /* 🔥 lepiej skaluje się względem tekstu */
+  line-height:1;                 /* 🔥 usuwa przesunięcie */
 }
 
 .back-btn.compact:focus-visible {
