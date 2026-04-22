@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>KARTA WZORÓW i wielkości fizykochemicznych</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="splash" class="splash" aria-hidden="true">
+  <div>
+    <div class="splash-frame">
+      <img src="splash.jpg" alt="Ekran startowy aplikacji">
+    </div>
+    <div class="splash-note">Ładowanie aplikacji…</div>
+  </div>
+</div>
+
+<div class="app">
+  <main id="startScreen" class="start-screen">
+    <div class="wrap">
+      <header class="start-header">
+        <div class="title-row start-top-row">
+          <h1 class="title">KARTA WZORÓW FIZYCZNYCH</h1>
+          <button id="infoBtn" class="info-btn" type="button" aria-label="Informacje">i</button>
+        </div>
+
+        <div class="search-wrap unified">
+          <div class="search-input-wrap unified">
+            <input id="sectionSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="szukaj">
+            <button id="clearSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie">✕</button>
+          </div>
+          <div id="searchMeta" class="search-meta" aria-live="polite"></div>
+        </div>
+      </header>
+        <h1>Lista działów</h1>
+      <nav id="sectionList" class="section-list" aria-label="Lista działów"></nav>
+    </div>
+  </main>
+
+  <section id="readerScreen" class="reader-screen hidden" aria-label="Czytnik działów">
+    <div class="reader-top">
+      <div class="reader-top-inner">
+        <div class="reader-top-row">
+          <button id="backBtn" class="back-btn compact" type="button" aria-label="Powrót do listy działów">
+            <span class="back-arrow" aria-hidden="true"><span class="ui-icon-glyph">⬅</span></span>
+            <span class="back-label">Lista działów</span>
+          </button>
+          <button id="infoBtnReader" class="info-btn" type="button" aria-label="Informacje">i</button>
+        </div>
+
+        <div class="reader-search-wrap">
+          <div class="search-input-wrap unified">
+            <input id="readerSearch" class="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="szukaj">
+            <button id="clearReaderSearch" class="clear-search hidden" type="button" aria-label="Wyczyść wyszukiwanie w działach">✕</button>
+          </div>
+          <div id="readerSearchMeta" class="search-meta" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="readerContent" class="reader-content"></div>
+  </section>
+</div>
+
+<div id="infoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="license-note-title">
+  <div class="modal-content">
+    <button id="closeModal" class="modal-close" type="button" aria-label="Zamknij okno">✕</button>
+
+    <section class="license-note" aria-labelledby="license-note-title">
+      <h2 id="license-note-title">Informacja o opracowaniu</h2>
+
+      <p>
+        To opracowanie edukacyjne „KARTA WZORÓW i wielkości fizykochemicznych” zostało przygotowane przez
+        <a href="mailto:anna@jedlinscy.com"><strong>Annę Wójcik-Jedlińską</strong></a>.
+      </p>
+
+      <p>
+        Materiał jest inspirowany zakresem kart wzorów do egzaminu maturalnego publikowanych przez
+        <a
+          href="https://bip.cke.gov.pl/artykul/211/1658/egzamin-maturalny-w-formule-2022"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Centralną Komisję Egzaminacyjną (CKE)
+        </a>.
+      </p>
+
+      <p>
+        Układ, forma prezentacji oraz sposób dostosowania treści do urządzeń mobilnych zostały
+        opracowane samodzielnie. Materiał ma charakter pomocniczy i edukacyjny.
+      </p>
+
+      <p>
+        Niniejszy materiał <strong>nie stanowi oficjalnego dokumentu CKE</strong> i
+        <strong>nie zastępuje</strong> oryginalnych kart wzorów publikowanych przez CKE.
+      </p>
+
+      <p>
+        O ile nie wskazano inaczej, autorskie elementy tego opracowania są udostępniane na licencji
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/deed.pl"
+          target="_blank"
+          rel="license noopener noreferrer"
+        >
+          Creative Commons Uznanie autorstwa 4.0 Międzynarodowe (CC BY 4.0)
+        </a>.
+      </p>
+
+      <p>
+        Licencja ta dotyczy wyłącznie elementów przygotowanych przez autora opracowania i
+        <strong>nie obejmuje</strong> materiałów źródłowych CKE ani innych treści, do których prawa
+        przysługują odrębnym podmiotom.
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+const sectionMeta = {
+  kinematyka: {
+    title: 'Kinematyka',
+    icon: 'V',
+    subtitle: 'Ruch i zależności kinematyczne',
+    images: ['images/kinematyka.png'],
+    keywords: ['kinematyka', 'ruch', 'prędkość', 'predkosc', 'przyspieszenie', 'tor ruchu']
+  },
+  dynamika: {
+    title: 'Dynamika',
+    icon: 'F',
+    subtitle: 'Siły i prawa dynamiki',
+    images: ['images/dynamika.png'],
+    keywords: ['dynamika', 'zasady dynamiki', 'newton', 'siła', 'sila', 'masa']
+  },
+  sily_tarcia_i_sila_sprezystosci: {
+    title: 'Siły tarcia i siła sprężystości',
+    icon: '⇄',
+    subtitle: 'Tarcie, sprężystość i opory ruchu',
+    images: ['images/sily_tarcia_i_sila_sprezystosci.png'],
+    keywords: ['tarcie', 'siła tarcia', 'sila tarcia', 'sprężystość', 'sprezystosc', 'hooke']
+  },
+  grawitacja_i_elementy_astronomii: {
+    title: 'Grawitacja i elementy astronomii',
+    icon: 'G',
+    subtitle: 'Grawitacja, orbity i astronomia',
+    images: ['images/grawitacja_i_elementy_astronomii.png'],
+    keywords: ['grawitacja', 'astronomia', 'planety', 'orbita', 'ciążenie', 'ciazenie']
+  },
+  drgania_fale_mechaniczne_i_swietlne: {
+    title: 'Drgania, fale mechaniczne i świetlne',
+    icon: '≋',
+    subtitle: 'Drgania oraz fale mechaniczne i świetlne',
+    images: ['images/drgania_fale_mechaniczne_i_swietlne.png'],
+    keywords: ['drgania', 'fala', 'fale', 'mechaniczne', 'świetlne', 'swiatlo', 'światło']
+  },
+  optyka_geometryczna: {
+    title: 'Optyka geometryczna',
+    icon: '⏿',
+    subtitle: 'Soczewki, zwierciadła i obrazy',
+    images: ['images/optyka_geometryczna.png'],
+    keywords: ['optyka', 'soczewka', 'lustro', 'ogniskowa', 'powiększenie', 'powiekszenie']
+  },
+  hydrostatyka_aerostatyka: {
+    title: 'Hydrostatyka i aerostatyka',
+    icon: 'ρ',
+    subtitle: 'Ciśnienie, ciecze i gazy',
+    images: ['images/hydrostatyka_aerostatyka.png'],
+    keywords: ['hydrostatyka', 'aerostatyka', 'ciecz', 'ciśnienie', 'cisnienie', 'prawo pascala', 'archimedes']
+  },
+  termodynamika: {
+    title: 'Termodynamika',
+    icon: 'ΔT',
+    subtitle: 'Ciepło, temperatura i przemiany',
+    images: ['images/termodynamika.png'],
+    keywords: ['termodynamika', 'ciepło', 'cieplo', 'temperatura', 'gaz', 'energia wewnętrzna']
+  },
+  elektrostatyka: {
+    title: 'Elektrostatyka',
+    icon: '⊕',
+    subtitle: 'Ładunki, pole elektryczne i potencjał',
+    images: ['images/elektrostatyka.png'],
+    keywords: ['elektrostatyka', 'ładunek', 'ladunek', 'pole elektryczne', 'kondensator', 'prawo coulomba']
+  },
+  prad_elektryczny: {
+    title: 'Prąd elektryczny',
+    icon: '⏚',
+    subtitle: 'Prąd, opór, napięcie i obwody',
+    images: ['images/prad_elektryczny.png'],
+    keywords: ['prąd', 'prad', 'natężenie', 'natezenie', 'opór', 'opor', 'napięcie', 'napiecie', 'ohm']
+  },
+  magnetyzm: {
+    title: 'Magnetyzm',
+    icon: 'B',
+    subtitle: 'Pole magnetyczne i indukcja',
+    images: ['images/magnetyzm.png'],
+    keywords: ['magnetyzm', 'pole magnetyczne', 'indukcja', 'cewka', 'solenoid']
+  },
+  elementy_mechaniki_relatywistycznej: {
+    title: 'Elementy mechaniki relatywistycznej',
+    icon: 'c',
+    subtitle: 'Relatywistyka i ruch z dużą prędkością',
+    images: ['images/elementy_mechaniki_relatywistycznej.png'],
+    keywords: ['relatywistyczna', 'relatywistyka', 'szczególna teoria względności', 'wzglednosci', 'einstein']
+  },
+  elementy_fizyki_atomowej_i_jadrowej: {
+    title: 'Elementy fizyki atomowej i jądrowej',
+    icon: '⚛',
+    subtitle: 'Atom, jądro i promieniotwórczość',
+    images: ['images/elementy_fizyki_atomowej_i_jadrowej.png'],
+    keywords: ['atomowa', 'jądrowa', 'jadrowa', 'promieniotwórczość', 'promieniotworczosc', 'izotop', 'foton']
+  },
+  wybrane_zaleznosci: {
+    title: 'Wybrane zależności',
+    icon: '∑',
+    subtitle: 'Zestaw przydatnych zależności',
+    images: ['images/wybrane_zaleznosci.png'],
+    keywords: ['zależności', 'zaleznosci', 'wzory', 'przekształcenia']
+  },
+  podstawowe_jednostki_ukladu_si: {
+    title: 'Podstawowe jednostki układu SI',
+    icon: 'SI',
+    subtitle: 'Podstawowe jednostki układu SI',
+    images: ['images/podstawowe_jednostki_ukladu_si.png'],
+    keywords: ['jednostki', 'układ si', 'uklad si', 'si', 'metr', 'kilogram', 'sekunda']
+  },
+  przedrostki_jednostek_miar: {
+    title: 'Przedrostki jednostek miar',
+    icon: '10³',
+    subtitle: 'Przedrostki i skale wielkości',
+    images: ['images/przedrostki_jednostek_miar.png'],
+    keywords: ['przedrostki', 'mikro', 'mega', 'giga', 'nano', 'mili']
+  },
+  wartosci_wybranych_stalych_fizycznych: {
+    title: 'Wartości wybranych stałych fizycznych',
+    icon: 'h',
+    subtitle: 'Stałe fizyczne i ich wartości',
+    images: ['images/wartosci_wybranych_stalych_fizycznych.png'],
+    keywords: ['stałe fizyczne', 'stale fizyczne', 'stałe', 'stale', 'g', 'h', 'c']
+  },
+  wybrane_stale_i_parametry_astrofizyczne: {
+    title: 'Wybrane stałe i parametry astrofizyczne',
+    icon: '☼',
+    subtitle: 'Stałe i parametry astrofizyczne',
+    images: ['images/wybrane_stale_i_parametry_astrofizyczne.png'],
+    keywords: ['astrofizyczne', 'astronomia', 'planety', 'słońce', 'slonce', 'kosmos']
+  },
+  wartosci_wybranych_jednostek_spoza_ukladu_si: {
+    title: 'Wybrane wartości jednostek spoza układu SI',
+    icon: 'eV',
+    subtitle: 'Jednostki spoza układu SI',
+    images: ['images/wartosci_wybranych_jednostek_spoza_ukladu_si.png'],
+    keywords: ['spoza układu si', 'spoza ukladu si', 'elektronowolt', 'ev', 'rok świetlny', 'rok swietlny']
+  },
+  uklad_okresowy_pierwiastkow: {
+    title: 'Układ okresowy pierwiastków',
+    icon: 'H',
+    subtitle: 'Układ okresowy pierwiastków',
+    images: ['images/uklad_okresowy_pierwiastkow.png'],
+    keywords: ['uklad', 'układ', 'okresowy', 'pierwiastow', 'pierwiastków', 'tablica']
+  }
+};
+
+function normalizeText(value) {
+  return (value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ł/g, 'l')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const sections = Object.entries(sectionMeta).map(([id, meta]) => ({
+  id,
+  ...meta,
+  searchText: normalizeText([meta.title, ...(meta.keywords || [])].join(' '))
+}));
+
+const startScreen = document.getElementById('startScreen');
+const readerScreen = document.getElementById('readerScreen');
+const sectionList = document.getElementById('sectionList');
+const readerContent = document.getElementById('readerContent');
+const backBtn = document.getElementById('backBtn');
+const splash = document.getElementById('splash');
+const readerTop = readerScreen.querySelector('.reader-top');
+
+const sectionSearch = document.getElementById('sectionSearch');
+const clearSearch = document.getElementById('clearSearch');
+const searchMeta = document.getElementById('searchMeta');
+
+const readerSearch = document.getElementById('readerSearch');
+const clearReaderSearch = document.getElementById('clearReaderSearch');
+const readerSearchMeta = document.getElementById('readerSearchMeta');
+
+const infoButtons = [
+  document.getElementById('infoBtn'),
+  document.getElementById('infoBtnReader')
+].filter(Boolean);
+const infoModal = document.getElementById('infoModal');
+const closeModal = document.getElementById('closeModal');
+
+let zoomModal = null;
+let zoomImage = null;
+let closeZoomModalBtn = null;
+
+let lastTargetId = sections[0]?.id || '';
+let readerBuilt = false;
+
+function getFilteredSections(query) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) return sections;
+
+  const terms = normalizedQuery.split(' ').filter(Boolean);
+  return sections.filter(section => terms.every(term => section.searchText.includes(term)));
+}
+
+function updateSearchMeta(query, count) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    searchMeta.textContent = ' ';
+    return;
+  }
+  if (count === 0) {
+    searchMeta.textContent = 'Brak wyników. Spróbuj innego hasła.';
+    return;
+  }
+  searchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działów.`;
+}
+
+function updateReaderSearchMeta(query, count) {
+  const normalizedQuery = normalizeText(query);
+  if (!normalizedQuery) {
+    readerSearchMeta.textContent = '';
+    return;
+  }
+  if (count === 0) {
+    readerSearchMeta.textContent = 'Brak pasujących działów.';
+    return;
+  }
+  readerSearchMeta.textContent = count === 1 ? 'Znaleziono 1 dział.' : `Znaleziono ${count} działy.`;
+}
+
+function renderStartList(query = '') {
+  const filtered = getFilteredSections(query);
+
+  sectionList.innerHTML = filtered.length
+    ? filtered.map(section => `
+        <button class="section-link" type="button" data-target="${section.id}" aria-label="Otwórz dział ${section.title}">
+          <span class="section-icon" aria-hidden="true"><span class="ui-icon-glyph">${section.icon}</span></span>
+          <span class="section-copy">
+            <span class="section-name">${section.title}</span>
+            <span class="section-subtitle">${section.subtitle}</span>
+          </span>
+          <span class="section-chevron" aria-hidden="true">›</span>
+        </button>
+      `).join('')
+    : '<div class="empty-state">Brak pasujących działów.</div>';
+
+  updateSearchMeta(query, filtered.length);
+  clearSearch.classList.toggle('hidden', !normalizeText(query));
+}
+
+function buildReader() {
+  if (readerBuilt) return;
+
+  readerContent.innerHTML = sections.map(section => `
+    <article class="panel" id="${section.id}" tabindex="-1" data-search="${section.searchText}">
+      <h2>${section.title}</h2>
+      ${section.images.map(src => `
+        <div class="figure ${section.id === 'uklad_okresowy_pierwiastkow' ? 'figure--zoomable' : ''}">
+          <img
+            src="${src}"
+            alt="${section.title}"
+            loading="lazy"
+            decoding="async"
+            ${section.id === 'uklad_okresowy_pierwiastkow' ? 'data-zoomable="true" tabindex="0" role="button" aria-label="Powiększ układ okresowy"' : ''}
+          >
+        </div>
+      `).join('')}
+    </article>
+  `).join('');
+
+  setupZoomableImages();
+  readerBuilt = true;
+}
+
+function filterReaderPanels(query = '') {
+  const normalizedQuery = normalizeText(query);
+  const terms = normalizedQuery ? normalizedQuery.split(' ').filter(Boolean) : [];
+  const panels = readerContent.querySelectorAll('.panel');
+  let visibleCount = 0;
+
+  panels.forEach(panel => {
+    const haystack = panel.dataset.search || '';
+    const visible = !terms.length || terms.every(term => haystack.includes(term));
+    panel.classList.toggle('hidden', !visible);
+    if (visible) visibleCount += 1;
+  });
+
+  clearReaderSearch.classList.toggle('hidden', !terms.length);
+  updateReaderSearchMeta(query, visibleCount);
+  return visibleCount;
+}
+
+function getReaderHeaderOffset() {
+  return readerTop ? readerTop.offsetHeight + 8 : 8;
+}
+
+function alignReaderToTarget(target) {
+  if (!target || target.classList.contains('hidden')) return;
+  const top = target.getBoundingClientRect().top + window.scrollY - getReaderHeaderOffset();
+  window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+}
+
+function waitForRelevantImages(target) {
+  const allVisiblePanels = Array.from(readerContent.querySelectorAll('.panel'))
+    .filter(panel => !panel.classList.contains('hidden'));
+
+  const targetVisibleIndex = allVisiblePanels.findIndex(panel => panel.id === target.id);
+  const relevantPanels = targetVisibleIndex >= 0 ? allVisiblePanels.slice(0, targetVisibleIndex + 1) : [target];
+
+  const images = relevantPanels
+    .flatMap(panel => Array.from(panel.querySelectorAll('img')))
+    .filter(img => !img.complete);
+
+  if (!images.length) return Promise.resolve();
+
+  return Promise.race([
+    Promise.all(images.map(img => new Promise(resolve => {
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    }))),
+    new Promise(resolve => setTimeout(resolve, 1200))
+  ]);
+}
+
+async function openReader(targetId) {
+  buildReader();
+
+  lastTargetId = targetId || sections[0]?.id || '';
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  startScreen.classList.add('hidden');
+  readerScreen.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+
+  const target = document.getElementById(lastTargetId);
+  if (!target) return;
+
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  alignReaderToTarget(target);
+
+  await waitForRelevantImages(target);
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(target);
+}
+
+function closeReader() {
+  readerScreen.classList.add('hidden');
+  startScreen.classList.remove('hidden');
+
+  readerSearch.value = '';
+  if (readerBuilt) {
+    filterReaderPanels('');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+infoButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    infoModal.classList.remove('hidden');
+  });
+});
+
+closeModal.addEventListener('click', () => {
+  infoModal.classList.add('hidden');
+});
+
+infoModal.addEventListener('click', event => {
+  if (event.target === infoModal) {
+    infoModal.classList.add('hidden');
+  }
+});
+
+function ensureZoomModal() {
+  if (zoomModal) return;
+
+  const markup = document.createElement('div');
+  markup.innerHTML = `
+    <div id="zoomModal" class="zoom-modal hidden" role="dialog" aria-modal="true" aria-label="Powiększony obraz">
+      <div class="zoom-modal-content">
+        <button id="closeZoomModal" class="zoom-modal-close" type="button" aria-label="Zamknij powiększenie">✕</button>
+        <img id="zoomImage" src="" alt="">
+      </div>
+    </div>
+  `;
+  document.body.appendChild(markup.firstElementChild);
+
+  zoomModal = document.getElementById('zoomModal');
+  zoomImage = document.getElementById('zoomImage');
+  closeZoomModalBtn = document.getElementById('closeZoomModal');
+
+  closeZoomModalBtn.addEventListener('click', closeZoomModal);
+  zoomModal.addEventListener('click', event => {
+    if (event.target === zoomModal) {
+      closeZoomModal();
+    }
+  });
+}
+
+function openZoomModal(sourceImage) {
+  ensureZoomModal();
+  zoomImage.src = sourceImage.currentSrc || sourceImage.src;
+  zoomImage.alt = sourceImage.alt || 'Powiększony obraz';
+  zoomModal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+}
+
+function closeZoomModal() {
+  if (!zoomModal) return;
+  zoomModal.classList.add('hidden');
+  zoomImage.src = '';
+  document.body.classList.remove('modal-open');
+}
+
+function setupZoomableImages() {
+  ensureZoomModal();
+
+  readerContent.querySelectorAll('img[data-zoomable="true"]').forEach(img => {
+    img.addEventListener('click', () => openZoomModal(img));
+    img.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openZoomModal(img);
+      }
+    });
+  });
+}
+
+
+backBtn.addEventListener('click', closeReader);
+
+window.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    if (zoomModal && !zoomModal.classList.contains('hidden')) {
+      closeZoomModal();
+      return;
+    }
+    if (!infoModal.classList.contains('hidden')) {
+      infoModal.classList.add('hidden');
+      return;
+    }
+    if (!readerScreen.classList.contains('hidden')) {
+      closeReader();
+    }
+  }
+});
+
+sectionList.addEventListener('click', event => {
+  const btn = event.target.closest('[data-target]');
+  if (!btn) return;
+  openReader(btn.dataset.target);
+});
+
+sectionSearch.addEventListener('input', event => {
+  renderStartList(event.target.value);
+});
+
+sectionSearch.addEventListener('search', event => {
+  renderStartList(event.target.value);
+});
+
+clearSearch.addEventListener('click', () => {
+  sectionSearch.value = '';
+  renderStartList('');
+  sectionSearch.focus();
+});
+
+readerSearch.addEventListener('input', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+readerSearch.addEventListener('search', async event => {
+  const visibleCount = filterReaderPanels(event.target.value);
+  if (!visibleCount) return;
+
+  const firstVisible = readerContent.querySelector('.panel:not(.hidden)');
+  if (!firstVisible) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(firstVisible);
+});
+
+clearReaderSearch.addEventListener('click', async () => {
+  readerSearch.value = '';
+  filterReaderPanels('');
+
+  const currentTarget = document.getElementById(lastTargetId) || readerContent.querySelector('.panel');
+  if (!currentTarget) return;
+
+  await new Promise(resolve => requestAnimationFrame(resolve));
+  alignReaderToTarget(currentTarget);
+  readerSearch.focus();
+});
+
+renderStartList('');
+
+window.addEventListener('load', () => {
+  setTimeout(() => splash.classList.add('hidden'), 800);
+
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+});
+</script>
+</body>
+</html>
