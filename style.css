@@ -536,6 +536,9 @@ img {
   color:var(--muted);
   font-size:.94rem;
 }
+.menu-icon {
+  color: var(--accent);
+}
 
 @media (max-width: 640px) {
   .wrap,
