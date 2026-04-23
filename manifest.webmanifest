@@ -1,8 +1,8 @@
 {
   "name": "Karta wzorów fizyka",
   "short_name": "Wzory fizyka",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/Fizyka_karta-wzorow/",
+  "scope": "/Fizyka_karta-wzorow/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
