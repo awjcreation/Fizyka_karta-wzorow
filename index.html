@@ -301,7 +301,9 @@ const clearSearch = document.getElementById('clearSearch');
 const searchMeta = document.getElementById('searchMeta');
 
 const readerSearchWrap = document.getElementById('readerSearchWrap');
-const searchToggle = document.getElementById('searchToggle');
+searchToggle.addEventListener('click', () => {
+  searchToggle.classList.toggle('active');
+});
 const readerSearch = document.getElementById('readerSearch');
 const clearReaderSearch = document.getElementById('clearReaderSearch');
 const readerSearchMeta = document.getElementById('readerSearchMeta');
