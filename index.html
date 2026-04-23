@@ -696,6 +696,41 @@ window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
 });
+  let deferredInstallPrompt = null;
+const installBtn = document.getElementById('installBtn');
+
+if (installBtn) {
+
+  // ukryty na start
+  installBtn.classList.add('hidden');
+
+  // gdy PWA jest gotowe do instalacji
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+
+    installBtn.classList.remove('hidden');
+  });
+
+  // kliknięcie instalacji
+  installBtn.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) return;
+
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
+
+    deferredInstallPrompt = null;
+    installBtn.classList.add('hidden');
+
+    console.log('Install:', choice.outcome);
+  });
+
+  // po instalacji
+  window.addEventListener('appinstalled', () => {
+    installBtn.innerHTML = '✔';
+    setTimeout(() => installBtn.classList.add('hidden'), 1500);
+  });
+}
 </script>
 </body>
 </html>
