@@ -658,7 +658,19 @@ body.modal-open {
   font-size: 1em;
 }
 
+/* Chrome, Safari, Edge */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
 
+/* Dodatkowe elementy WebKit (dla bezpieczeństwa) */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
 /* ================= DESKTOP TUNING ================= */
 @media (min-width: 900px) {
   .wrap {
