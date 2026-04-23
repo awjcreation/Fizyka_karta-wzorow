@@ -139,11 +139,7 @@ img {
 
 .install-btn {
   font-weight:600;
-  background:#16a34a;   /* zielony */
   box-shadow:0 4px 12px rgba(16,185,129,.3);
-}
-.install-btn:hover {
-  background:#15803d;   /* ciemniejszy na hover */
 }
 
 .install-btn.hidden {
@@ -847,4 +843,12 @@ body.modal-open {
 .zoom-modal-close:focus-visible {
   outline:none;
   box-shadow:0 0 0 4px rgba(29,78,216,.18);
+}
+
+.install-btn {
+  background:#10b981;
+}
+
+.install-btn:hover {
+  background:#059669;
 }
