@@ -197,6 +197,7 @@ img {
   background: rgba(255,255,255,.96);
   color: var(--text);
   border-radius: var(--radius-lg);
+  border:1px solid #d1d5db;
   padding: 15px 46px 15px 68px;
   font-size: 1rem;
   box-shadow: none;
