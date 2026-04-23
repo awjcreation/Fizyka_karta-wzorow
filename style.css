@@ -183,7 +183,7 @@ img {
   left:16px;
   top:50%;
   transform:translateY(-50%);
-  font-size:calc(56px * 0.6);
+  font-size:calc(56px * 0.5);
   color:#8a839a;
   line-height:1;
   pointer-events:none;
@@ -198,7 +198,7 @@ img {
   background:rgba(255,255,255,.96);
   color:var(--text);
   border-radius:var(--radius-lg);
-  padding:15px 46px 15px 54px;
+  padding:15px 46px 15px 60px;
   font-size:1rem;
   box-shadow:none;
   outline:none;
