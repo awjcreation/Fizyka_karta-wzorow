@@ -100,7 +100,34 @@ img {
   outline:none;
   box-shadow:0 0 0 4px rgba(29,78,216,.16);
 }
+/* 🔹 przycisk instalacji – styl jak info-btn, ale subtelniejszy */
+.install-btn {
+  width:clamp(30px, 6vw, 40px);
+  height:clamp(30px, 6vw, 40px);
+  border-radius:50%;
+  border:none;
 
+  background:#1e3a8a; /* 🔥 ten sam ciemny niebieski */
+  color:#fff;
+
+  font-size:clamp(1rem, 3vw, 1.2rem);
+  font-weight:700;
+
+  display:grid;
+  place-items:center;
+
+  cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  transition:transform .1s ease, opacity .2s ease;
+}
+
+.install-btn:hover {
+  transform:scale(1.05);
+}
+
+.install-btn.hidden {
+  display:none !important;
+}
 .modal {
   position:fixed;
   inset:0;
